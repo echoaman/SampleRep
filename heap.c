@@ -1,6 +1,3 @@
-#include<stdio.h>
-#include<stdlib.h>
-
 int * maxHeap(int heap[] , int i , int size)
 {
 	int l,r,largest ,temp ;
