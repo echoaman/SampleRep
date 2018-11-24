@@ -1,0 +1,126 @@
+
+Aim: To implement heapsort algorithm and obtain the final output as ascending order.
+
+Theory:
+
+Heapsort can be thought of as an improved selection sort like that algorithm, it divides its input into a sorted and an unsorted region, and it iteratively shrinks the unsorted region by extracting the largest element and moving that to the sorted region. The improvement consists of the use of a heap data structure rather than a linear-time search to find the maximum.
+
+The heapsort algorithm can be divided into two parts: 
+In the first step, a heap is built out of the data. The heap is often placed in an array with the layout of a complete binary tree. The complete binary tree maps the binary tree structure into the array indices; each array index represents a node; the index of the node's parent, left child branch, or right child branch are simple expressions. For a zero-based array, the root node is stored at index 0; if i is the index of the current node, then 
+
+Parent(i) = floor((i-1)/2) where floor gives greatest integer-1
+LeftChild(i)=2*i+1
+RightChild(i)=2*i+2
+
+In the second step, a sorted array is created by repeatedly removing the largest element from the heap (the root of the heap), and inserting it into the array. The heap is updated after each removal to maintain the heap property. Once all objects have been removed from the heap, the result is a sorted array.
+
+Program:
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int * maxHeapify(int heap[] , int i , int size)
+{
+	int l,r,largest ,temp ;
+	int * p;
+
+	l =2*i;
+	r =(2*i)+1;
+
+	if(( l <= size ) && ( heap[l] > heap[i]))
+		largest = l;
+
+	else
+		largest = i;
+
+	if(( r<= size ) && ( heap[r] > heap[largest]))
+		largest = r;
+
+	if(largest != i)
+	{
+		temp = heap[i];
+		heap[i] = heap[largest];
+		heap[largest] = temp;
+		p = maxHeapify(heap , largest , size);
+	}
+	return heap;
+}
+
+int * heapsort(int arr[], int n)
+{
+    int heapsize = n;
+    int temp;
+    for(int i=n ; i>=2;i--)
+	{
+		temp = *(arr +1);
+		*(arr + 1) = *(arr+i);
+		*(arr+i) = temp;
+		heapsize--;
+		arr = maxHeapify(arr,1,heapsize);
+	}
+	return arr;
+
+}
+
+void main()
+{
+	int size,i,temp ;
+	int *maxheap;
+	printf("Enter size:");
+	scanf("%d",&size);
+	int arr[size + 1];
+
+	for(i=1 ; i<=size ; i++)
+	{
+		printf("Enter value: ");
+		scanf("%d",&arr[i]);
+
+	}
+
+	for(i = size/2 ; i>=1;i--)
+	{
+		maxheap = maxHeapify(arr,i,size);
+
+	}
+
+	printf("Max heap:\n");
+
+	for(i=1 ; i<= size ; i++)
+	{
+		printf("%d ",*(maxheap + i));
+	}
+
+
+	maxheap=heapsort(maxheap,size);
+
+	printf("\nAfter heap sort:\n");
+
+	for(i=1 ; i<= size ; i++)
+	{
+		printf("%d ",*(maxheap + i));
+
+	}
+
+}
+
+Output:
+
+Enter size:10
+Enter value: 432
+Enter value: 87
+Enter value: 12
+Enter value: 8
+Enter value: 2
+Enter value: 99
+Enter value: 5
+Enter value: 23
+Enter value: 878
+Enter value: 45
+Max heap:
+878 432 99 87 45 12 5 23 8 2
+After heap sort:
+2 5 8 12 23 45 87 99 432 878
+
+Conclusion:
+Hence, heaps algorithm was understood and applied.
+	
